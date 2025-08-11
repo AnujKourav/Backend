@@ -6,22 +6,44 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.event.internal.AbstractSaveEventListener;
 
+import java.io.ObjectInputFilter;
+
 public class Main {
     public static void main(String[] args) {
 
-        Student s1 = new Student();
-        s1.setRollno(106);
-        s1.setsName("Avni");
-        s1.setSage(22);
-
-//        Student s2 = null;
+        Alien a1 = new Alien();
+        a1.setAid(1);
+        a1.setaName("Anuj");
+        a1.setTech("Java");
 
         Configuration cfg = new Configuration();
-        cfg.addAnnotatedClass(com.udemy.Student.class);
+        cfg.addAnnotatedClass(com.udemy.Alien.class);
         cfg.configure();
 
         SessionFactory sf = cfg.buildSessionFactory();
         Session session = sf.openSession();
+
+        Transaction transaction = session.beginTransaction();
+        session.persist(a1);
+        transaction.commit();
+
+        session.close();
+        sf.close();
+
+
+//        Student s1 = new Student();
+//        s1.setRollno(106);
+//        s1.setsName("Avni");
+//        s1.setSage(22);
+
+//        Student s2 = null;
+
+//        Configuration cfg = new Configuration();
+//        cfg.addAnnotatedClass(com.udemy.Student.class);
+//        cfg.configure();
+
+//        SessionFactory sf = cfg.buildSessionFactory();
+//        Session session = sf.openSession();
 
 //        for inserting the data
 //        Transaction transaction = session.beginTransaction();
@@ -42,16 +64,16 @@ public class Main {
 //        transaction.commit();
 
 //        fetch and delete if you don't have object, with the help of primary key fetch it first
-        Transaction transaction = session.beginTransaction();
-        Student s2 = new Student();
-        s2 = session.find(Student.class,106);
-        session.remove(s2);
-        transaction.commit();
-
-        session.close();
-        sf.close();
-
-        System.out.println(s1);
+//        Transaction transaction = session.beginTransaction();
+//        Student s2 = new Student();
+//        s2 = session.find(Student.class,106);
+//        session.remove(s2);
+//        transaction.commit();
+//
+//        session.close();
+//        sf.close();
+//
+//        System.out.println(s1);
 
     }
 }

@@ -1,17 +1,26 @@
 package com.udemy;
 
+//import jakarta.persistence.Embeddable;
+
 import jakarta.persistence.*;
 
-@Entity(name="AlienTable")
+import java.util.List;
+
+//@Entity(name="AlienTable")
 //@Table(name="Alien_Table") //we can change the table name using these two
+@Entity
 public class Alien {
 
     @Id
     private int aid;
-    @Column(name="Alien_Name") //we can change the column name using this
+//    @Column(name="Alien_Name") //we can change the column name using this
     private String aName;
-    @Transient //this will make it to be not stored in database table
+//    @Transient //this will make it to be not stored in database table
     private String tech;
+//    @OneToOne(mappedBy = "alien")
+//    @ManyToMany
+    @OneToMany
+    private List<Laptop> laptops;
 
     public int getAid() {
         return aid;
@@ -37,12 +46,21 @@ public class Alien {
         this.tech = tech;
     }
 
+    public List<Laptop> getLaptops() {
+        return laptops;
+    }
+
+    public void setLaptops(List<Laptop> laptops) {
+        this.laptops = laptops;
+    }
+
     @Override
     public String toString() {
         return "Alien{" +
                 "aid=" + aid +
                 ", aName='" + aName + '\'' +
                 ", tech='" + tech + '\'' +
+                ", laptop=" + laptops +
                 '}';
     }
 }
